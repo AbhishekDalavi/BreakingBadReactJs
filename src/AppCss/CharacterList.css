@@ -1,0 +1,365 @@
+.wrapper,
+html,
+body {
+  height: 100vh;
+  margin: 0 auto;
+  background: #000000 !important;
+}
+.container{
+  max-width: 100% !important;
+  padding: 0px !important;
+}
+.mainContainer{
+ position: relative;
+ overflow-x: hidden;
+}
+.mainStyle{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 100px;
+}
+.mainCardContainer {
+  flex: 100%;
+  display: flex;
+  flex-direction: 'row';
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 25px;
+  /* flex-wrap: wrap; */
+  background-color: #131313;
+  border-radius: 5px;
+}
+.cardImgStyle{
+  width: 150px;
+  height: 205px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.cardContentStyle{
+  flex: 1;
+  margin: 20px;
+}
+.cardRowContainer{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+.favouriteStyle{
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+.headerContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.favheaderContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* padding-top: 17px; */
+}
+.heaaderWrapper{
+  flex: 1;
+  background: #000000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+  width: 100%;
+  height: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 4.5%;
+  padding-right: 4.5%;
+}
+.cursorStyle{
+  cursor: pointer;
+}
+.detailSubContainer{
+  width: 55%;
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.headerM-l{
+  margin-left: 20px;
+}
+.noDataStyle {
+  flex: 1 auto;
+  display: 'flex';
+  flex-direction: 'column';
+  justify-content: 'center';
+  align-items: 'center';
+  margin-top: 150px
+}
+.searchBoxStyle{
+height: 50px;
+max-width: 330px;
+width: 334px;
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+background: #131313;
+border-width: 0px;
+border-radius: 5px;
+padding-left: 10px;
+margin-right: 20px;
+padding-right: 20px;
+}
+.searchInputStyle {
+  height: 50px;
+  max-width: 310px;
+  width: 334px;
+  background: #131313;
+  border-width: 0px;
+  outline: none;
+
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner-container{
+  height: 100vh;
+  width: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #18CA75; /* Light green */
+  border-top: 10px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+.mainCardContainer.cursorStyle:hover {
+  transition: 0.2s all;
+  transform: scale(0.97);
+}
+
+.favoriteContainer:active {
+  transition: 0.2s all;
+  /* transform: scale(1.26); */
+}
+
+.transitionStyle:active {
+  transition: 0.2s all;
+  transform: scale(0.85);
+}
+
+.overlay{
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 480px) {
+  .col-sm-12 {
+    width: 96% !important;
+  }
+  .mainContainer{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  /* .heaaderWrapper{
+    padding-top: 25px;
+    padding-bottom: 25px;
+  } */
+  .mainCardContainer{
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+    .cardImgStyle {
+      width: 130px;
+      height: 180px;
+    }
+    .favouriteStyle{
+      height: 30px;
+      width: 30px;
+    }
+  .cardContentStyle{
+    margin: 10px;
+  }
+  .headerM-l{
+    margin-left: 10px;
+  }
+  .searchBoxStyle{
+    max-width: 210px;
+    margin-right: 10px;
+    padding-right: 10px;
+  }
+  .searchInputStyle{
+    max-width: 180px;
+  }
+  .cardTitleStyle{
+    font-size: 17px;
+  }
+  .cardSubTitleStyle{
+    font-size: 10px;
+  }
+  .descSubtitleStyle{
+    font-size: 14;
+  }
+}
+ /* Extra small devices (phones, 640px and down) */
+ @media only screen and (min-width: 480px) {
+  .col-sm-12 {
+    width: 96% !important;
+  }
+  .mainContainer{
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  .mainCardContainer{
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .favouriteStyle{
+    height: 35px;
+    width: 35px;
+  }
+  .searchBoxStyle{
+    max-width: 305px;
+  }
+  .searchInputStyle{
+    max-width: 280px;
+  }
+  .cardTitleStyle{
+    font-size: 19px;
+  }
+  .cardSubTitleStyle{
+    font-size: 12px;
+  }
+  .descSubtitleStyle{
+    font-size: 16;
+  }
+ }
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+ @media only screen and (min-width: 640px) {
+  .favouriteStyle{
+    height: 40px;
+    width: 40px;
+  }
+  .searchBoxStyle{
+    max-width: 330px;
+  }
+  .searchInputStyle{
+    max-width: 330px;
+  }
+ 
+  .cardContentStyle{
+    width: 90%;
+  }
+  .cardImgStyle {
+    max-width: 200px;
+    min-width: 170px;
+    width: 170px;
+    height: 260px;
+    margin-right: 0px;
+  }
+  .cardTitleStyle{
+    font-size: 24px;
+  }
+  .cardSubTitleStyle{
+    font-size: 15px;
+  }
+  
+ }
+ 
+ /* Medium devices (landscape tablets, 768px and up) */
+ @media only screen and (min-width: 769px) {
+ 
+  .col-md-6 {
+    width: 47% !important;
+  }
+  .mainContainer{
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .mainCardContainer{
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+  }
+  .mainCardContainer{
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .cardImgStyle{
+    width: 150px;
+    height: 205px;
+    min-width: 150px;
+
+    margin-right: 10px;
+  }
+  .cardContentStyle{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .cardTitleStyle{
+    font-size: 21px;
+  }
+  .cardSubTitleStyle{
+    font-size: 14px;
+  }
+  .descSubtitleStyle{
+    font-size: 18;
+  }
+ }
+ 
+ /* Large devices (laptops/desktops, 992px and up) */
+ @media only screen and (min-width: 992px) {
+  
+  .mainContainer{
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+  
+ }
+ 
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+ @media only screen and (min-width: 1201px) {
+  .col-lg-4 {
+    width: 30.333% !important;
+  }
+  .mainCardContainer{
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+  }
+  .cardTitleStyle{
+    font-size: 24px;
+  }
+  .cardSubTitleStyle{
+    font-size: 15px;
+  }
+  .descSubtitleStyle{
+    font-size: 20;
+  }
+ } 
