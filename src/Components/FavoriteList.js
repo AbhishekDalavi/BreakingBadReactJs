@@ -55,10 +55,10 @@ const FavoriteList = (props) => {
         return (
             <div className="cardRowContainer heaaderWrapper">
                 <div>
-                    <Link to={'/'}> <img src={require('../Images/leftArrow.png')} /> </Link>
+                    <Link to={'/'}> <img src={require('../Images/left-arrow.svg').default} /> </Link>
                 </div>
                 <div className="favheaderContainer" >
-                    <img src={require('../Images/Vector.png')} />
+                    <img src={require('../Images/Vector.svg').default} />
                     <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>
                 </div>
                 <div>

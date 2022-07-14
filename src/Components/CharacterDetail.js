@@ -59,7 +59,7 @@ const CharacterDetail = (props) =>{
     const renderImageView= () =>{
         return(
             <div className="overlay col-lg-6 col-md-12" style={myStyle(character)}>
-                <img src={require('../Images/leftArrow.png')} className="cursorStyle transitionStyle" onClick={()=>navigate(-1)} style={styles.leftArrowStyle}/>
+                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate(-1)} style={styles.leftArrowStyle}/>
                 <div style={{ marginTop: 90 }}>
                     <div className="charcterSubImgStyle">
                         {(character.img) ? <img src={character.img} className="charcterDetailImg" />
@@ -89,7 +89,7 @@ const CharacterDetail = (props) =>{
                             <span className="descSubtitleStyle" style={styles.subTitleStyle}>{character.portrayed}</span>
                         </div>
                         <div className="dobContainer">
-                            <img src={require('../Images/Dob.png')} className="dobStyle" />
+                            <img src={require('../Images/dob.svg').default} className="dobStyle" />
                             <span  className="cardTitleStyle" style={styles.dateTextStyle}>{character.birthday != 'Unknown' ? character.birthday : 'N/A'}</span>
                         </div>
                     </div>

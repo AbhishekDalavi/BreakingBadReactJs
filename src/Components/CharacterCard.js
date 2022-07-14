@@ -29,9 +29,9 @@ const CharacterCard = (props) => {
                         onFavoriteClick(index, characterItem);
                          }}>
                         {characterItem.isFavorite ?
-                            <img src={require("../Images/HEART_FILLED.png")} className="favouriteStyle" />
+                            <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" />
                             :
-                            <img src={require("../Images/HEART.png")} className="favouriteStyle" />}
+                            <img src={require("../Images/HEART.svg").default} className="favouriteStyle" />}
                     </div>
                 </div>
                 <div className="headerContainer" style={{ marginTop: (screenWidth <= 590) ? 10 : 20 }}>

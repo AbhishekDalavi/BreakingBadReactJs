@@ -81,7 +81,7 @@ const CharacterList = (props) => {
         return(
             <div className="cardRowContainer heaaderWrapper">
                 <div className="headerContainer">
-                    <img src={require('../Images/Vector.png')}/>
+                    <img src={require('../Images/Vector.svg').default}/>
                     {(isSearchVisible && windowWidth <= 768 ) ? undefined : <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>}
                 </div>
                 <div className="headerContainer">
@@ -96,14 +96,14 @@ const CharacterList = (props) => {
                             onChange={(e) => onchangeText(e.target.value)}
                             onSubmit={() => onchangeText(searchText) }
                         />
-                        <img src={require('../Images/search.png')} className="cursorStyle transitionStyle" onClick={()=>{
+                        <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" onClick={()=>{
                             setCharacterArray(charactersList);
                             resetData();}}/>
                     </div>
                     :
-                    <img src={require('../Images/search.png')} className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
+                    <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
                     }
-                    <img src={require('../Images/HEART_FILLED.png')} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList',{state: {favoriteList}})}/>
+                    <img src={require('../Images/HEART_FILLED.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList',{state: {favoriteList}})}/>
                 </div>
             </div>
         );
