@@ -1,21 +1,10 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
 import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
 
 const CharacterCard = (props) => {
     const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
 
-    const cardContainer = {
-        background: AppColors.lightBlack,
-        height: (windowWidth <= 480) ? 195 : (windowWidth >= 640 && windowWidth <= 768) ? 410 : 221,
-        width: screenWidth,
-        marginTop: 25,
-        marginRight: (windowWidth <= 1200) ? 15 : (windowWidth <= 1420) ? 20 : 40,
-        marginLeft: (windowWidth <= 1200) ? 15 : (windowWidth <= 1420) ? 20 : 40,
-        flexWrap: 'nowrap'
-    }
-    // style={cardContainer}
-    return (
+       return (
         <div key={`${characterItem.name}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
             onClick={onCardClick ? () => onCardClick(characterItem) : null}>
             

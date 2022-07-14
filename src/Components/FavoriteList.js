@@ -57,7 +57,7 @@ const FavoriteList = (props) => {
                 <div>
                     <Link to={'/'}> <img src={require('../Images/leftArrow.png')} /> </Link>
                 </div>
-                <div className="favheaderContainer" style={styles.textOverFlow}>
+                <div className="favheaderContainer" >
                     <img src={require('../Images/Vector.png')} />
                     <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>
                 </div>
@@ -124,9 +124,5 @@ const styles = {
         color: AppColors.green,
         textTransform: 'capitalize'
     },
-    textOverFlow: {
-        // overflow:'hidden', 
-        // textOverflow: 'ellipsis', 
-        // whiteSpace: 'nowrap'
-    }
+
 }
