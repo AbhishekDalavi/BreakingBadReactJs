@@ -15,7 +15,7 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
     const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
 
        return (
-        <div key={`${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
+        <div key={`${characterItem.char_id}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
             onClick={ () => onCardClick ? onCardClick(characterItem) : null}>
             
             <div style={{ margin: 8 }}>
