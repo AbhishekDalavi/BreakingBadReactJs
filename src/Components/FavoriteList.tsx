@@ -8,9 +8,6 @@ import CharacterCard from "./CharacterCard";
 import EmptyComponent from "./EmptyComponent";
 import LoadingSpinner from "./Spinner";
 
-type LocationState = {
-    favoriteList: CharacterModal[]
-  }
 
 const FavoriteList: React.FC = (props) => {
 
@@ -18,10 +15,8 @@ const FavoriteList: React.FC = (props) => {
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 : (window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
     const windowWidth = window.innerWidth;
 
-    const location = useLocation();
     const navigate = useNavigate();
     const charactersList = useSelector((state: RootState) => state.commonReducer.characters);
-    // const loader = useSelector(state => state.commonReducer.loadingCharacters);
 
     const [stateUpdater, setStateUpdater] = useState<boolean>(false);
     const [favoriteList, setFavoriteList] = useState<CharacterModal[]>([]);
@@ -31,9 +26,9 @@ const FavoriteList: React.FC = (props) => {
 
     useEffect(() => {
         setLoader(true);
-        if (location&& location.state) {
-            const { favoriteList } = location.state as LocationState;
-            setFavoriteList(favoriteList);
+        if (charactersList&& charactersList.length > 0) {
+            const FavoriteCharList = charactersList.filter((item:CharacterModal)=> item.isFavorite);
+            (FavoriteCharList.length > 0) ? setFavoriteList(FavoriteCharList) : setFavoriteList([]);
             setLoader(false);
         }
         return () => {
@@ -53,7 +48,7 @@ const FavoriteList: React.FC = (props) => {
                 setFavoriteList([]);
             }
         }
-    }, [stateUpdater, favoriteList])
+    }, [stateUpdater])
 
 /******************************************************************************Rendr Header ******************************************************* */
 

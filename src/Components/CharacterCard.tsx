@@ -9,13 +9,13 @@ type cardPropsModal={
     windowWidth?: number,
     onFavoriteClick: (index:number, characterItem: CharacterModal)=>void,
     onCardClick:(characterItem: CharacterModal)=>void
-    
+
 }
 const CharacterCard: React.FC <cardPropsModal> = (props) => {
     const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
 
        return (
-        <div key={`${characterItem.name}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
+        <div key={`${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
             onClick={ () => onCardClick ? onCardClick(characterItem) : null}>
             
             <div style={{ margin: 8 }}>

@@ -9,7 +9,7 @@ import CharacterCard from "./CharacterCard";
 import EmptyComponent from "./EmptyComponent";
 import LoadingSpinner from "./Spinner";
 
-const CharacterList = (props:any) => {
+const CharacterList = () => {
     const width:number = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 :(window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
     
@@ -20,7 +20,6 @@ const CharacterList = (props:any) => {
     const loader = useSelector((state: RootState)=> state.commonReducer.loadingCharacters);
 
     const [stateUpdater, setStateUpdater] = useState<boolean>(false);
-    const [favoriteList, setFavoriteList] = useState<CharacterModal[]>([]);
     const [characterArray, setCharacterArray] = useState<CharacterModal[]>([]);
     const [searchText, setSearchText] = useState<string>('');
     const [isSearchVisible, setisSearchVisible] = useState<boolean>(false);
@@ -49,14 +48,6 @@ const CharacterList = (props:any) => {
     useEffect(()=>{
         searchText && setCharacterArray(searchedCharactersList) ;
         (characterArray.length <= 0 && !searchText) && setCharacterArray(charactersList);
-
-        const FavoriteCharList = charactersList.filter((item:CharacterModal,index:number)=> item.isFavorite);
-        if(FavoriteCharList.length > 0){
-            setFavoriteList(FavoriteCharList);
-        }
-        else{
-            setFavoriteList([]);
-        }
 
     },[stateUpdater,charactersList, searchedCharactersList])
 
@@ -103,7 +94,7 @@ const CharacterList = (props:any) => {
                     :
                     <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
                     }
-                    <img src={require('../Images/HEART_FILLED.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList',{state: {favoriteList}})}/>
+                    <img src={require('../Images/HEART_FILLED.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList')}/>
                 </div>
             </div>
             
@@ -121,7 +112,6 @@ const CharacterList = (props:any) => {
                         screenWidth={width}
                         windowWidth= {windowWidth}
                         onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem} })}}
-                        // onCardClick={(characterItem:CharacterModal)=>{}}
                         onFavoriteClick={(selectedIndex, selectedItem)=>{
                             const obj = {...selectedItem, "isFavorite": !selectedItem.isFavorite}
                             characterArray.splice(selectedIndex, 1, obj);
@@ -145,7 +135,7 @@ const CharacterList = (props:any) => {
                     <LoadingSpinner />
                 </div>
                 :
-                (!loader && characterArray.length > 0) ?
+                (!loader && charactersList.length > 0) ?
                     renderCharacterList()
                     :
                     <EmptyComponent
