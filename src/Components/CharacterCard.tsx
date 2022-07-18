@@ -1,12 +1,22 @@
 import React from "react";
-import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
+import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
+import { CharacterModal } from "../shared/InterFaces/InterFaceList";
 
-const CharacterCard = (props) => {
+type cardPropsModal={
+    characterItem: CharacterModal,
+    index: number,
+    screenWidth: number,
+    windowWidth?: number,
+    onFavoriteClick: (index:number, characterItem: CharacterModal)=>void,
+    onCardClick:(characterItem: CharacterModal)=>void
+    
+}
+const CharacterCard: React.FC <cardPropsModal> = (props) => {
     const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
 
        return (
         <div key={`${characterItem.name}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
-            onClick={onCardClick ? () => onCardClick(characterItem) : null}>
+            onClick={ () => onCardClick ? onCardClick(characterItem) : null}>
             
             <div style={{ margin: 8 }}>
                 {(characterItem.img) ? <img src={characterItem.img} className="cardImgStyle" />
@@ -54,22 +64,18 @@ const styles = {
     nameText: {
         fontFamily: AppFontFamily.RobotoBold,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     nicknameText: {
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     portrayedTitleStyle: {
         fontFamily: AppFontFamily.RobotoSemiBold,
         color: AppColors.green,
-        textTransform: 'capitalize'
     },
     portrayedStyle: {
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
         marginLeft: 15,
-        textTransform: 'capitalize'
     }
 }

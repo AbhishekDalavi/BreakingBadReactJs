@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
+import { RootState } from "../Redux/store/store";
+import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
+import { CharacterModal } from "../shared/InterFaces/InterFaceList";
 import CharacterCard from "./CharacterCard";
 import EmptyComponent from "./EmptyComponent";
 import LoadingSpinner from "./Spinner";
 
-const FavoriteList = (props) => {
+type LocationState = {
+    favoriteList: CharacterModal[]
+  }
+
+const FavoriteList: React.FC = (props) => {
 
     const width = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 : (window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
@@ -14,19 +20,19 @@ const FavoriteList = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const charactersList = useSelector(state => state.commonReducer.characters);
+    const charactersList = useSelector((state: RootState) => state.commonReducer.characters);
     // const loader = useSelector(state => state.commonReducer.loadingCharacters);
 
-    const [stateUpdater, setStateUpdater] = useState(false);
-    const [favoriteList, setFavoriteList] = useState([]);
+    const [stateUpdater, setStateUpdater] = useState<boolean>(false);
+    const [favoriteList, setFavoriteList] = useState<CharacterModal[]>([]);
     const [loader, setLoader] = useState(false);
 
 /******************************************************************************UseEffect Start ******************************************************* */
 
     useEffect(() => {
         setLoader(true);
-        if (location.state.favoriteList) {
-            const { favoriteList } = location.state;
+        if (location&& location.state) {
+            const { favoriteList } = location.state as LocationState;
             setFavoriteList(favoriteList);
             setLoader(false);
         }
@@ -78,8 +84,8 @@ const FavoriteList = (props) => {
                         index={index}
                         screenWidth={width}
                         windowWidth={windowWidth}
-                        onCardClick={(characterItem)=>navigate('/characterDetail', {state: {characterItem} })}
-                        onFavoriteClick={(selectedIndex, selectedItem) => {
+                        onCardClick={(characterItem: CharacterModal)=>navigate('/characterDetail', {state: {characterItem} })}
+                        onFavoriteClick={(selectedIndex: number, selectedItem: CharacterModal) => {
                             const obj = { ...selectedItem, "isFavorite": !selectedItem.isFavorite }
                             favoriteList.splice(selectedIndex, 1, obj);
                             const selectedCharIdx = (Number(selectedItem.char_id) -1)
@@ -117,12 +123,10 @@ const styles = {
         fontFamily: AppFontFamily.RobotoBold,
         color: AppColors.white,
         // marginLeft: 20,
-        textTransform: 'capitalize'
     },
     favoriteTextStyle: {
         fontFamily: AppFontFamily.RobotoRegular,
         color: AppColors.green,
-        textTransform: 'capitalize'
     },
 
 }

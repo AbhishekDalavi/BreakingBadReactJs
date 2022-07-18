@@ -221,12 +221,18 @@ padding-right: 20px;
   }
   .cardTitleStyle{
     font-size: 17px;
+    text-transform: capitalize;
   }
   .cardSubTitleStyle{
     font-size: 10px;
+    text-transform: capitalize;
+
   }
   .descSubtitleStyle{
     font-size: 14;
+    text-transform: capitalize;
+    text-align: start;
+
   }
 }
  /* Extra small devices (phones, 640px and down) */
@@ -254,12 +260,19 @@ padding-right: 20px;
   }
   .cardTitleStyle{
     font-size: 19px;
+    text-transform: capitalize;
+
   }
   .cardSubTitleStyle{
     font-size: 12px;
+    text-transform: capitalize;
+
   }
   .descSubtitleStyle{
     font-size: 16;
+    text-transform: capitalize;
+    text-align: start;
+
   }
  }
  /* Small devices (portrait tablets and large phones, 600px and up) */

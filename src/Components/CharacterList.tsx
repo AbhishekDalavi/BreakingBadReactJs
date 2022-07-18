@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { makeRequest } from "../ApiCall/Apiservices";
-import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
-import { commonReducer } from "../Redux/reducers/commonReducer";
-import { getAllCharacters } from "../Redux/actions/commonAction";
-import CharacterCard from "./CharacterCard";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAllCharacters } from "../Redux/actions/commonAction";
+import { RootState, useAppDispatch } from "../Redux/store/store";
+import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
+import { CharacterModal } from "../shared/InterFaces/InterFaceList";
+import CharacterCard from "./CharacterCard";
 import EmptyComponent from "./EmptyComponent";
 import LoadingSpinner from "./Spinner";
 
-const CharacterList = (props) => {
-    const width = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
+const CharacterList = (props:any) => {
+    const width:number = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 :(window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
     
-    const windowWidth = window.innerWidth;
-    const dispatch = useDispatch();
-    const charactersList = useSelector(state=> state.commonReducer.characters); 
-    const searchedCharactersList = useSelector(state=> state.commonReducer.searchedCharacters); 
-    const loader = useSelector(state=> state.commonReducer.loadingCharacters);
+    const windowWidth:number = window.innerWidth;
+    const dispatch = useAppDispatch();
+    const charactersList = useSelector((state:RootState)=> state.commonReducer.characters); 
+    const searchedCharactersList = useSelector((state: RootState)=> state.commonReducer.searchedCharacters); 
+    const loader = useSelector((state: RootState)=> state.commonReducer.loadingCharacters);
 
-    const [stateUpdater, setStateUpdater] = useState(false);
-    const [favoriteList, setFavoriteList] = useState([]);
-    const [characterArray, setCharacterArray] = useState([]);
-    const [searchText, setSearchText] = useState('');
-    const [isSearchVisible, setisSearchVisible] = useState(false);
+    const [stateUpdater, setStateUpdater] = useState<boolean>(false);
+    const [favoriteList, setFavoriteList] = useState<CharacterModal[]>([]);
+    const [characterArray, setCharacterArray] = useState<CharacterModal[]>([]);
+    const [searchText, setSearchText] = useState<string>('');
+    const [isSearchVisible, setisSearchVisible] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const CharacterList = (props) => {
         searchText && setCharacterArray(searchedCharactersList) ;
         (characterArray.length <= 0 && !searchText) && setCharacterArray(charactersList);
 
-        const FavoriteCharList = charactersList.filter((item,index)=> item.isFavorite);
+        const FavoriteCharList = charactersList.filter((item:CharacterModal,index:number)=> item.isFavorite);
         if(FavoriteCharList.length > 0){
             setFavoriteList(FavoriteCharList);
         }
@@ -62,7 +62,7 @@ const CharacterList = (props) => {
 
 /******************************************************************************Search bar onChange ******************************************************* */
 
-    const onchangeText = (value) =>{
+    const onchangeText = (value:string) =>{
         const url= value ?`characters?name=${value}` : 'characters';
         if(value){
         setSearchText(value);
@@ -106,6 +106,7 @@ const CharacterList = (props) => {
                     <img src={require('../Images/HEART_FILLED.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList',{state: {favoriteList}})}/>
                 </div>
             </div>
+            
         );
     }
 
@@ -119,7 +120,8 @@ const CharacterList = (props) => {
                         index={index} 
                         screenWidth={width}
                         windowWidth= {windowWidth}
-                        onCardClick={(characterItem)=>navigate('/characterDetail', {state: {characterItem} })}
+                        onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem} })}}
+                        // onCardClick={(characterItem:CharacterModal)=>{}}
                         onFavoriteClick={(selectedIndex, selectedItem)=>{
                             const obj = {...selectedItem, "isFavorite": !selectedItem.isFavorite}
                             characterArray.splice(selectedIndex, 1, obj);

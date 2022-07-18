@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllCharacters } from "../Redux/actions/commonAction";
-import { commonReducer } from "../Redux/reducers/commonReducer";
+import { RootState, useAppDispatch } from "../Redux/store/store";
 import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
+import { CharacterModal } from "../shared/InterFaces/InterFaceList";
 
 const windowWidth = window.innerWidth;
 
-const CharacterDetail = (props) =>{
+type LocationState = {
+    characterItem: CharacterModal
+  }
 
-    const [character, setCharacter] = useState(null);
-    const [otherCharacterList, setOtherCharacterList] = useState([]);
-    const characterList = useSelector(state=>state.commonReducer.characters);
+const CharacterDetail: React.FC = (props) =>{
+
+    const [character, setCharacter] = useState<CharacterModal>(null!);
+    const [otherCharacterList, setOtherCharacterList] = useState<CharacterModal[]>([]);
+    const characterList = useSelector((state:RootState)=>state.commonReducer.characters);
     const location = useLocation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
 /******************************************************************************UseEffect start ******************************************************* */
@@ -24,15 +29,15 @@ const CharacterDetail = (props) =>{
             dispatch(getAllCharacters('GET', url, null, false));
         }
 
-        if (location.state.characterItem) {
-            const { characterItem } = location.state;
+        if (location.state) {
+            const { characterItem } = location.state as LocationState;
             setCharacter(characterItem);
         }
     },[])
 
     useEffect(()=>{
         if(characterList.length > 0 && character){
-            const getOthercharArray = characterList.filter((item,idx)=>(item.char_id == character.char_id+1) || (item.char_id == character.char_id+2) || (item.char_id == character.char_id+3) )
+            const getOthercharArray = characterList.filter((item:CharacterModal)=>(item.char_id == character.char_id+1) || (item.char_id == character.char_id+2) || (item.char_id == character.char_id+3) )
             if(getOthercharArray.length > 0){
                 setOtherCharacterList(getOthercharArray);
             }else{
@@ -44,7 +49,7 @@ const CharacterDetail = (props) =>{
 
 /******************************************************************************Image OverLay Style ******************************************************* */
 
-    const myStyle=(characterItem)=>{
+    const myStyle=(characterItem:CharacterModal)=>{
     return{
         backgroundImage:`linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, #000000 78.62%), url(${characterItem.img})`,
         // width: (windowWidth <= 768 )? '100%' : '45%',
@@ -59,7 +64,8 @@ const CharacterDetail = (props) =>{
     const renderImageView= () =>{
         return(
             <div className="overlay col-lg-6 col-md-12" style={myStyle(character)}>
-                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate(-1)} style={styles.leftArrowStyle}/>
+                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate(-1)} style={{ position: 'absolute', 
+                                                                                top: (windowWidth <= 640) ? 60 : 80, left: (windowWidth <= 640) ? 20 : 50}}/>
                 <div style={{ marginTop: 90 }}>
                     <div className="charcterSubImgStyle">
                         {(character.img) ? <img src={character.img} className="charcterDetailImg" />
@@ -96,15 +102,15 @@ const CharacterDetail = (props) =>{
                     <div className="charDetailmargin">
                         <div className="subRowContainer">
                             <span className="cardTitleStyle" style={styles.titleStyle}>Occupation</span>
-                            <span className="descSubtitleStyle" style={styles.subTitleStyle}>{(character.occupation.length > 0) ? character.occupation.join(", ") : null}</span>
+                            <span className="descSubtitleStyle" style={styles.subTitleStyle}>{(character.occupation && character.occupation.length > 0) ? character.occupation.join(", ") : null}</span>
                         </div>
                     </div>
                     <div className="subRowContainer charDetailmargin charDetailmarginTop">
                         <span className="cardTitleStyle" style={styles.titleStyle}>Appeared in</span>
-                        {(character.appearance.length > 0) ? <div className="OtherCharacterContainer">
+                        {(character.appearance && character.appearance.length > 0) ? <div className="OtherCharacterContainer">
                             {character.appearance.map((item, idx) => {
                                 return (
-                                    <div className="seasonContainer">
+                                    <div className="seasonContainer" key={`${idx}_appearance`}>
                                         <span className="descSubtitleStyle" style={styles.subTitleStyle}>{`Season ${item}`}</span>
                                     </div>
                                 )
@@ -121,7 +127,7 @@ const CharacterDetail = (props) =>{
                     {otherCharacterList.length > 0 && otherCharacterList.map((otherCharItem, index) => {
                         const {img, name, nickname} = otherCharItem;
                         return (
-                            <div style={{marginRight: 40}}>
+                            <div style={{marginRight: 40}} key={`${index}_otherCharacterList`}>
                                 <div style={{marginBottom: 10}}>
                                     {img ? <img src={img} className="cardImgStyle" />
                                     :
@@ -157,51 +163,42 @@ const styles = {
     nameText: {
         fontFamily: AppFontFamily.RobotoBold,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     nicknameText: {
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     otherNameText: {
         fontSize: AppFonts.FontSize16,
         fontFamily: AppFontFamily.RobotoBold,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     otherNicknameText: {
         fontSize: AppFonts.FontSize14,
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     titleStyle:{
         fontFamily: AppFontFamily.RobotoSemiBold,
         color: AppColors.green,
-        textTransform: 'capitalize'
     },
     subTitleStyle: {
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
-        textAlign: 'start',
-        textTransform: 'capitalize'
     },
     dateTextStyle:{
         fontFamily: AppFontFamily.RobotoLight,
         color: AppColors.white,
-        textTransform: 'capitalize'
     },
     otherCharTitle:{
         fontFamily: AppFontFamily.RobotoBold,
         color: AppColors.white,
         marginBottom: 20,
-        textTransform: 'capitalize'
     },
-    leftArrowStyle: {
-        position: 'absolute', 
-        top: (windowWidth <= 640) ? 60 : 80, 
-        left: (windowWidth <= 640) ? 20 : 50
-    }
+    // leftArrowStyle: {
+    //     position: 'absolute', 
+    //     top: (windowWidth <= 640) ? 60 : 80, 
+    //     left: (windowWidth <= 640) ? 20 : 50
+    // }
 }
 

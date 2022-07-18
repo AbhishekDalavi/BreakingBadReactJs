@@ -1,11 +1,17 @@
 import * as type from '../../shared/Constants/actionTypes';
 
-const initialState = {
+interface intitalStateInterface{
+  loadingCharacters: boolean,
+  characters: Array<[]>,
+  searchedCharacters: Array<[]>
+}
+
+const initialState : intitalStateInterface = {
   loadingCharacters: false,
   characters: [],
   searchedCharacters: []
 };
-export const commonReducer = (state = initialState, action) => {
+export const commonReducer = (state = initialState, action: any ) => {
   switch (action.type) {
     case type.ALL_CHARACTER_REQUEST: {
       return {

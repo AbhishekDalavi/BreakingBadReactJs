@@ -1,7 +1,8 @@
-import React from "react";
 import axios from "axios";
+import { ApiCallObjModal } from "../shared/InterFaces/InterFaceList";
 
-export const makeRequest = ({method, data, url}) => {
+
+export const makeRequest = ({method, data, url}:ApiCallObjModal) => {
     const BaseUrl = 'https://www.breakingbadapi.com/api/';
     return new Promise((resolve, reject)=>{
         axios({

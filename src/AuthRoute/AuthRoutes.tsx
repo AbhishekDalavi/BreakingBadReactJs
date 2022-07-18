@@ -1,9 +1,7 @@
-import React from "react";
 import {
-    BrowserRouter as Router,
-    Routes, //replaces "Switch" used till v5
-    Route,
-  } from "react-router-dom";
+  BrowserRouter as Router, //replaces "Switch" used till v5
+  Route, Routes
+} from "react-router-dom";
 import CharacterDetail from "../Components/CharacterDetail";
 import CharacterList from "../Components/CharacterList";
 import FavoriteList from "../Components/FavoriteList";

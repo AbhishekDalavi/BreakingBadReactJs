@@ -1,6 +1,4 @@
 
-const width = window.innerWidth;
-
 export const AppFonts = {
     FontSize12: 12,
     FontSize13: 13,

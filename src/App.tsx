@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import AuthRoutes from './AuthRoute/AuthRoutes';
-import GlobalStyle from './GlobalStyle'
+import './AppCss/CharacterDetail.css';
+import './AppCss/CharacterList.css';
 
 function App() {
   return (
