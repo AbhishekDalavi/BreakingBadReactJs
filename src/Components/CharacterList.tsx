@@ -9,6 +9,7 @@ import CharacterCard from "./CharacterCard";
 import EmptyComponent from "./EmptyComponent";
 import LoadingSpinner from "./Spinner";
 
+
 const CharacterList: React.FC = (props) => {
     const width:number = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 :(window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
@@ -16,7 +17,7 @@ const CharacterList: React.FC = (props) => {
     const windowWidth:number = window.innerWidth;
     const dispatch = useAppDispatch();
     const charactersList = useSelector((state:RootState)=> state.commonReducer.characters); 
-    const searchedCharactersList = useSelector((state: RootState)=> state.commonReducer.searchedCharacters); 
+    const favoriteCharacterList = useSelector((state: RootState)=> state.commonReducer.favoriteCharacterList); 
     const loader = useSelector((state: RootState)=> state.commonReducer.loadingCharacters);
 
     const [stateUpdater, setStateUpdater] = useState<boolean>(false);
@@ -33,7 +34,7 @@ const CharacterList: React.FC = (props) => {
       if(charactersList && charactersList.length > 0){
         setCharacterArray(charactersList);
       } else{
-         dispatch(getAllCharacters('GET', url, null, false));
+         dispatch(getAllCharacters('GET', url, null));
       }
       return()=>{
        resetData();
@@ -43,13 +44,13 @@ const CharacterList: React.FC = (props) => {
     const resetData=()=>{
         setisSearchVisible(false);
         setSearchText('');
+        dispatch(getAllCharacters('GET', 'characters', null))
     }
 
     useEffect(()=>{
-        searchText && setCharacterArray(searchedCharactersList) ;
-        (characterArray.length <= 0 && !searchText) && setCharacterArray(charactersList);
+        setCharacterArray(charactersList);
 
-    },[stateUpdater,charactersList, searchedCharactersList])
+    },[stateUpdater,charactersList])
 
 /******************************************************************************Search bar onChange ******************************************************* */
 
@@ -58,12 +59,12 @@ const CharacterList: React.FC = (props) => {
         if(value){
         setSearchText(value);
         setTimeout(() => {
-            dispatch(getAllCharacters('GET', url, null, true))
+            dispatch(getAllCharacters('GET', url, null))
         }, 500);
         }else{
             setSearchText('');
             setTimeout(() => {
-                setCharacterArray(charactersList);
+                dispatch(getAllCharacters('GET', url, null))
             }, 500);
         }
     }
@@ -111,13 +112,16 @@ const CharacterList: React.FC = (props) => {
                         index={index} 
                         screenWidth={width}
                         windowWidth= {windowWidth}
-                        onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem} })}}
-                        onFavoriteClick={(selectedIndex, selectedItem)=>{
-                            const obj = {...selectedItem, "isFavorite": !selectedItem.isFavorite}
-                            characterArray.splice(selectedIndex, 1, obj);
-                            const selectedCharIdx = (Number(selectedItem.char_id) -1)
-                            searchText ? charactersList.splice(selectedCharIdx, 1, obj) : charactersList.splice(selectedIndex, 1, obj);
-                            searchedCharactersList.splice(selectedIndex, 1, obj);
+                        onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem, isFromFavorite: false} })}}
+                        onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
+                            if(isRemovedFavorite) {
+                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id == selectedItem.char_id);
+                                if(itemIndex != -1){
+                                    favoriteCharacterList.splice(itemIndex, 1);
+                                }
+                            }else{
+                                favoriteCharacterList.push(selectedItem);
+                            }
                             setStateUpdater(!stateUpdater);
                         }}
                         />)
@@ -146,7 +150,7 @@ const CharacterList: React.FC = (props) => {
                         onBtnClick={() => {
                             resetData();
                             const url = 'characters';
-                            dispatch(getAllCharacters('GET', url, null, false))
+                            dispatch(getAllCharacters('GET', url, null))
                         }}
                     />}
         </div>

@@ -2,7 +2,7 @@ import {makeRequest} from '../../ApiCall/Apiservices';
 import * as type from '../../shared/Constants/actionTypes';
 import { AppDispatch } from '../store/store';
 
-export const getAllCharacters = (method:string, url:string, data:object | null, isSearch:boolean) => {
+export const getAllCharacters = (method:string, url:string, data:object | null) => {
     return async (dispatch:AppDispatch) => {
 
       dispatch({type: type.ALL_CHARACTER_REQUEST});
@@ -17,7 +17,7 @@ export const getAllCharacters = (method:string, url:string, data:object | null, 
             if(response.status == 200 || response.statusText == 'OK'){
               // console.log("respose", response);
                 dispatch({
-                    type: isSearch ? type.ALL_SEARCHED_CHARACTER_SUCCESS : type.ALL_CHARACTER_SUCCESS,
+                    type: type.ALL_CHARACTER_SUCCESS,
                     payload: response.data,
                   });
             }
@@ -29,3 +29,4 @@ export const getAllCharacters = (method:string, url:string, data:object | null, 
       }
     };
   };
+

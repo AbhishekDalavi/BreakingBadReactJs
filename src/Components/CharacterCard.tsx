@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store/store";
 import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
 import { CharacterModal } from "../shared/InterFaces/InterFaceList";
 
@@ -7,12 +9,15 @@ type cardPropsModal={
     index: number,
     screenWidth: number,
     windowWidth?: number,
-    onFavoriteClick: (index:number, characterItem: CharacterModal)=>void,
+    onFavoriteClick: (index:number, characterItem: CharacterModal, isRemovedFavorite: boolean)=>void,
     onCardClick:(characterItem: CharacterModal)=>void
 
 }
 const CharacterCard: React.FC <cardPropsModal> = (props) => {
+    const favoriteCharacterList = useSelector((state: RootState)=> state.commonReducer.favoriteCharacterList); 
+
     const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
+    const isIdxAvailable = favoriteCharacterList.findIndex((item: CharacterModal)=>item.char_id == characterItem.char_id);
 
        return (
         <div key={`${characterItem.char_id}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
@@ -34,15 +39,21 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                             <span className="cardTitleStyle" style={styles.nicknameText}>{characterItem.nickname}</span>
                         </div>
                     </div>
-                    <div className="favoriteContainer" onClick={(e) => {
-                        e.stopPropagation();
-                        onFavoriteClick(index, characterItem);
-                         }}>
-                        {characterItem.isFavorite ?
-                            <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" />
-                            :
-                            <img src={require("../Images/HEART.svg").default} className="favouriteStyle" />}
-                    </div>
+                       {(isIdxAvailable != -1) ? <div className="favoriteContainer" onClick={(e) => {
+                           e.stopPropagation();
+                           onFavoriteClick(index, characterItem, true);
+                       }}>
+                           <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" />
+
+                       </div>
+                           :
+                           <div className="favoriteContainer" onClick={(e) => {
+                               e.stopPropagation();
+                               onFavoriteClick(index, characterItem, false);
+                           }}>
+                               <img src={require("../Images/HEART.svg").default} className="favouriteStyle" />
+                           </div>}
+
                 </div>
                 <div className="headerContainer" style={{ marginTop: (screenWidth <= 590) ? 10 : 20 }}>
                     <div>

@@ -9,12 +9,15 @@ import { CharacterModal } from "../shared/InterFaces/InterFaceList";
 const windowWidth = window.innerWidth;
 
 type LocationState = {
-    characterItem: CharacterModal
+    characterItem: CharacterModal,
+    isFromFavorite: boolean
   }
 
 const CharacterDetail: React.FC = (props) =>{
 
     const [character, setCharacter] = useState<CharacterModal>(null!);
+    const [stateUpdater, setStateUpdater] = useState<boolean>(false);
+    const [isFromFavorite, setIsFromFavorite] = useState(false);
     const [otherCharacterList, setOtherCharacterList] = useState<CharacterModal[]>([]);
     const characterList = useSelector((state:RootState)=>state.commonReducer.characters);
     const location = useLocation();
@@ -26,12 +29,13 @@ const CharacterDetail: React.FC = (props) =>{
     useEffect(()=>{
         if (characterList && characterList.length <= 0) {
             const url = 'characters';
-            dispatch(getAllCharacters('GET', url, null, false));
+            dispatch(getAllCharacters('GET', url, null));
         }
 
         if (location.state) {
-            const { characterItem } = location.state as LocationState;
+            const { characterItem, isFromFavorite } = location.state as LocationState;
             setCharacter(characterItem);
+            setIsFromFavorite(isFromFavorite);
         }
     },[])
 
@@ -52,7 +56,6 @@ const CharacterDetail: React.FC = (props) =>{
     const myStyle=(characterItem:CharacterModal)=>{
     return{
         backgroundImage:`linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, #000000 78.62%), url(${characterItem.img})`,
-        // width: (windowWidth <= 768 )? '100%' : '45%',
         height:'100vh',
         marginTop: -40,
         backgroundSize: 'cover',
@@ -64,8 +67,8 @@ const CharacterDetail: React.FC = (props) =>{
     const renderImageView= () =>{
         return(
             <div className="overlay col-lg-6 col-md-12" style={myStyle(character)}>
-                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate(-1)} style={{ position: 'absolute', 
-                                                                                top: (windowWidth <= 640) ? 60 : 80, left: (windowWidth <= 640) ? 20 : 50}}/>
+                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=> isFromFavorite ? navigate('/favoriteList') : navigate('/')} 
+                        style={{ position: 'absolute',top: (windowWidth <= 640) ? 60 : 80, left: (windowWidth <= 640) ? 20 : 50}}/>
                 <div style={{ marginTop: 90 }}>
                     <div className="charcterSubImgStyle">
                         {(character.img) ? <img src={character.img} className="charcterDetailImg" />
@@ -127,7 +130,10 @@ const CharacterDetail: React.FC = (props) =>{
                     {otherCharacterList.length > 0 && otherCharacterList.map((otherCharItem, index) => {
                         const {img, name, nickname} = otherCharItem;
                         return (
-                            <div style={{marginRight: 40}} key={`${index}_otherCharacterList`}>
+                            <div style={{marginRight: 40}} key={`${index}_otherCharacterList`} onClick={()=>{
+                                setCharacter(otherCharItem);
+                                setStateUpdater(!stateUpdater);
+                            }}>
                                 <div style={{marginBottom: 10}}>
                                     {img ? <img src={img} className="cardImgStyle" />
                                     :

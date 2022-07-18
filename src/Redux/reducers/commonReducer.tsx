@@ -3,14 +3,15 @@ import * as type from '../../shared/Constants/actionTypes';
 interface intitalStateInterface{
   loadingCharacters: boolean,
   characters: Array<[]>,
-  searchedCharacters: Array<[]>
+  favoriteCharacterList: Array<[]>
 }
 
 const initialState : intitalStateInterface = {
   loadingCharacters: false,
   characters: [],
-  searchedCharacters: []
+  favoriteCharacterList: []
 };
+
 export const commonReducer = (state = initialState, action: any ) => {
   switch (action.type) {
     case type.ALL_CHARACTER_REQUEST: {
@@ -26,17 +27,16 @@ export const commonReducer = (state = initialState, action: any ) => {
         characters: action.payload
       }
     }
-    case type.ALL_SEARCHED_CHARACTER_SUCCESS: {
-      return {
-        ...state,
-        loadingCharacters: false,
-        searchedCharacters: action.payload
-      }
-    }
     case type.ALL_CHARACTER_FAIL: {
       return {
         ...state,
         loadingCharacters: false,
+      }
+    }
+    case type.ALL_FAVORITE_LIST:{
+      return {
+        ...state,
+        favoriteCharacterList: action.payload,
       }
     }
     default:

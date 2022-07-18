@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../Redux/store/store";
 import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
 import { CharacterModal } from "../shared/InterFaces/InterFaceList";
@@ -17,6 +17,7 @@ const FavoriteList: React.FC = (props) => {
 
     const navigate = useNavigate();
     const charactersList = useSelector((state: RootState) => state.commonReducer.characters);
+    const favoriteCharacterList = useSelector((state: RootState)=> state.commonReducer.favoriteCharacterList); 
 
     const [stateUpdater, setStateUpdater] = useState<boolean>(false);
     const [favoriteList, setFavoriteList] = useState<CharacterModal[]>([]);
@@ -27,8 +28,7 @@ const FavoriteList: React.FC = (props) => {
     useEffect(() => {
         setLoader(true);
         if (charactersList&& charactersList.length > 0) {
-            const FavoriteCharList = charactersList.filter((item:CharacterModal)=> item.isFavorite);
-            (FavoriteCharList.length > 0) ? setFavoriteList(FavoriteCharList) : setFavoriteList([]);
+            (favoriteCharacterList.length > 0) ? setFavoriteList(favoriteCharacterList) : setFavoriteList([]);
             setLoader(false);
         }
         return () => {
@@ -38,17 +38,6 @@ const FavoriteList: React.FC = (props) => {
         }
     }, [])
 
-    useEffect(() => {
-        if (favoriteList.length > 0) {
-            const updatedFavList = favoriteList.filter((item, idx) => item.isFavorite)
-            if (updatedFavList.length > 0) {
-                setFavoriteList(updatedFavList)
-            }
-            else {
-                setFavoriteList([]);
-            }
-        }
-    }, [stateUpdater])
 
 /******************************************************************************Rendr Header ******************************************************* */
 
@@ -79,12 +68,14 @@ const FavoriteList: React.FC = (props) => {
                         index={index}
                         screenWidth={width}
                         windowWidth={windowWidth}
-                        onCardClick={(characterItem: CharacterModal)=>navigate('/characterDetail', {state: {characterItem} })}
-                        onFavoriteClick={(selectedIndex: number, selectedItem: CharacterModal) => {
-                            const obj = { ...selectedItem, "isFavorite": !selectedItem.isFavorite }
-                            favoriteList.splice(selectedIndex, 1, obj);
-                            const selectedCharIdx = (Number(selectedItem.char_id) -1)
-                            charactersList.splice(selectedCharIdx, 1, obj);
+                        onCardClick={(characterItem: CharacterModal)=>navigate('/characterDetail', {state: {characterItem, isFromFavorite: true} })}
+                        onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
+                            if(isRemovedFavorite) {
+                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id == selectedItem.char_id);
+                                if(itemIndex != -1){
+                                    favoriteCharacterList.splice(itemIndex, 1);
+                                }
+                            }
                             setStateUpdater(!stateUpdater);
                         }}
                     />)
