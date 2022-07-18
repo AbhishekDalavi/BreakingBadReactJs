@@ -1,9 +1,9 @@
 import {makeRequest} from '../../ApiCall/Apiservices';
 import * as type from '../../shared/Constants/actionTypes';
-import { AppDispatch, RootState } from '../store/store';
+import { AppDispatch } from '../store/store';
 
 export const getAllCharacters = (method:string, url:string, data:object | null, isSearch:boolean) => {
-    return async (dispatch:AppDispatch, getState:RootState) => {
+    return async (dispatch:AppDispatch) => {
 
       dispatch({type: type.ALL_CHARACTER_REQUEST});
   
