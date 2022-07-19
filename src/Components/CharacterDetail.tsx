@@ -41,7 +41,7 @@ const CharacterDetail: React.FC = (props) =>{
 
     useEffect(()=>{
         if(characterList.length > 0 && character){
-            const getOthercharArray = characterList.filter((item:CharacterModal)=>(item.char_id == character.char_id+1) || (item.char_id == character.char_id+2) || (item.char_id == character.char_id+3) )
+            const getOthercharArray = characterList.filter((item:CharacterModal)=>(item.char_id === character.char_id+1) || (item.char_id === character.char_id+2) || (item.char_id === character.char_id+3) )
             if(getOthercharArray.length > 0){
                 setOtherCharacterList(getOthercharArray);
             }else{
@@ -67,13 +67,13 @@ const CharacterDetail: React.FC = (props) =>{
     const renderImageView= () =>{
         return(
             <div className="overlay col-lg-6 col-md-12" style={myStyle(character)}>
-                <img src={require('../Images/left-arrow.svg').default} className="cursorStyle transitionStyle" onClick={()=> isFromFavorite ? navigate('/favoriteList') : navigate('/')} 
+                <img src={require('../Images/left-arrow.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=> isFromFavorite ? navigate('/favoriteList') : navigate('/')} 
                         style={{ position: 'absolute',top: (windowWidth <= 640) ? 60 : 80, left: (windowWidth <= 640) ? 20 : 50}}/>
                 <div style={{ marginTop: 90 }}>
                     <div className="charcterSubImgStyle">
-                        {(character.img) ? <img src={character.img} className="charcterDetailImg" />
+                        {(character.img) ? <img src={character.img} className="charcterDetailImg" alt="no-img" />
                         :
-                        <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" /> 
+                        <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
                         }                       
                     </div>
                     <div style={{ marginTop: 15 }}>
@@ -98,8 +98,8 @@ const CharacterDetail: React.FC = (props) =>{
                             <span className="descSubtitleStyle" style={styles.subTitleStyle}>{character.portrayed}</span>
                         </div>
                         <div className="dobContainer">
-                            <img src={require('../Images/dob.svg').default} className="dobStyle" />
-                            <span  className="cardTitleStyle" style={styles.dateTextStyle}>{character.birthday != 'Unknown' ? character.birthday : 'N/A'}</span>
+                            <img src={require('../Images/dob.svg').default} className="dobStyle" alt="no-img" />
+                            <span  className="cardTitleStyle" style={styles.dateTextStyle}>{character.birthday !== 'Unknown' ? character.birthday : 'N/A'}</span>
                         </div>
                     </div>
                     <div className="charDetailmargin">
@@ -135,9 +135,9 @@ const CharacterDetail: React.FC = (props) =>{
                                 setStateUpdater(!stateUpdater);
                             }}>
                                 <div style={{marginBottom: 10}}>
-                                    {img ? <img src={img} className="cardImgStyle" />
+                                    {img ? <img src={img} className="cardImgStyle" alt="no-img" />
                                     :
-                                    <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" /> 
+                                    <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
                                     }
                                 </div>
                                 <div className="subRowContainer">

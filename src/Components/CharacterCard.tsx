@@ -8,7 +8,6 @@ type cardPropsModal={
     characterItem: CharacterModal,
     index: number,
     screenWidth: number,
-    windowWidth?: number,
     onFavoriteClick: (index:number, characterItem: CharacterModal, isRemovedFavorite: boolean)=>void,
     onCardClick:(characterItem: CharacterModal)=>void
 
@@ -16,17 +15,17 @@ type cardPropsModal={
 const CharacterCard: React.FC <cardPropsModal> = (props) => {
     const favoriteCharacterList = useSelector((state: RootState)=> state.commonReducer.favoriteCharacterList); 
 
-    const { characterItem, index, screenWidth, onFavoriteClick, onCardClick, windowWidth} = props;
-    const isIdxAvailable = favoriteCharacterList.findIndex((item: CharacterModal)=>item.char_id == characterItem.char_id);
+    const { characterItem, index, screenWidth, onFavoriteClick, onCardClick} = props;
+    const isIdxAvailable = favoriteCharacterList.findIndex((item: CharacterModal)=>item.char_id === characterItem.char_id);
 
        return (
         <div key={`${characterItem.char_id}_${index}_Characters`} className="mainCardContainer cursorStyle col-lg-4 col-md-6 col-sm-12"
             onClick={ () => onCardClick ? onCardClick(characterItem) : null}>
             
             <div style={{ margin: 8 }}>
-                {(characterItem.img) ? <img src={characterItem.img} className="cardImgStyle" />
+                {(characterItem.img) ? <img src={characterItem.img} className="cardImgStyle" alt="no-img"/>
                 :
-                <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" /> 
+                <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img"/> 
                 }
             </div>
             <div className="cardContentStyle">
@@ -39,11 +38,11 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                             <span className="cardTitleStyle" style={styles.nicknameText}>{characterItem.nickname}</span>
                         </div>
                     </div>
-                       {(isIdxAvailable != -1) ? <div className="favoriteContainer" onClick={(e) => {
+                       {(isIdxAvailable !== -1) ? <div className="favoriteContainer" onClick={(e) => {
                            e.stopPropagation();
                            onFavoriteClick(index, characterItem, true);
                        }}>
-                           <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" />
+                           <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" alt="no-img"/>
 
                        </div>
                            :
@@ -51,7 +50,7 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                                e.stopPropagation();
                                onFavoriteClick(index, characterItem, false);
                            }}>
-                               <img src={require("../Images/HEART.svg").default} className="favouriteStyle" />
+                               <img src={require("../Images/HEART.svg").default} className="favouriteStyle" alt="no-img"/>
                            </div>}
 
                 </div>

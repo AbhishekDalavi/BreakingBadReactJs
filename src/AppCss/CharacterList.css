@@ -87,16 +87,6 @@ body {
 .cursorStyle{
   cursor: pointer;
 }
-.detailSubContainer{
-  width: 55%;
-  margin-left: 50px;
-  margin-right: 50px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-}
 .headerM-l{
   margin-left: 20px;
 }

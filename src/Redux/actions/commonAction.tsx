@@ -14,7 +14,7 @@ export const getAllCharacters = (method:string, url:string, data:object | null) 
             data: data
         })
         .then(async (response:any)=> {
-            if(response.status == 200 || response.statusText == 'OK'){
+            if(response.status === 200 || response.statusText === 'OK'){
               // console.log("respose", response);
                 dispatch({
                     type: type.ALL_CHARACTER_SUCCESS,

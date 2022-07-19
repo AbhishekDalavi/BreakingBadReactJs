@@ -73,7 +73,7 @@ const CharacterList: React.FC = (props) => {
         return(
             <div className="cardRowContainer heaaderWrapper">
                 <div className="headerContainer">
-                    <img src={require('../Images/Vector.svg').default}/>
+                    <img src={require('../Images/Vector.svg').default} alt="no-img"/>
                     {(isSearchVisible && windowWidth <= 768 ) ? undefined : <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>}
                 </div>
                 <div className="headerContainer">
@@ -90,12 +90,12 @@ const CharacterList: React.FC = (props) => {
                         />
                         <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" onClick={()=>{
                             setCharacterArray(charactersList);
-                            resetData();}}/>
+                            resetData();}} alt="no-img"/>
                     </div>
                     :
-                    <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
+                    <img src={require('../Images/search.svg').default} alt="no-img" className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
                     }
-                    <img src={require('../Images/HEART_FILLED.svg').default} className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList')}/>
+                    <img src={require('../Images/HEART_FILLED.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList')}/>
                 </div>
             </div>
             
@@ -111,12 +111,11 @@ const CharacterList: React.FC = (props) => {
                         characterItem={item} 
                         index={index} 
                         screenWidth={width}
-                        windowWidth= {windowWidth}
                         onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem, isFromFavorite: false} })}}
                         onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
                             if(isRemovedFavorite) {
-                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id == selectedItem.char_id);
-                                if(itemIndex != -1){
+                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id === selectedItem.char_id);
+                                if(itemIndex !== -1){
                                     favoriteCharacterList.splice(itemIndex, 1);
                                 }
                             }else{

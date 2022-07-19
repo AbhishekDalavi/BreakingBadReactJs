@@ -45,10 +45,10 @@ const FavoriteList: React.FC = (props) => {
         return (
             <div className="cardRowContainer heaaderWrapper">
                 <div>
-                    <Link to={'/'}> <img src={require('../Images/left-arrow.svg').default} /> </Link>
+                    <Link to={'/'}> <img src={require('../Images/left-arrow.svg').default} alt="no-img"/> </Link>
                 </div>
                 <div className="favheaderContainer" >
-                    <img src={require('../Images/Vector.svg').default} />
+                    <img src={require('../Images/Vector.svg').default} alt="no-img"/>
                     <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>
                 </div>
                 <div>
@@ -67,12 +67,11 @@ const FavoriteList: React.FC = (props) => {
                         characterItem={item}
                         index={index}
                         screenWidth={width}
-                        windowWidth={windowWidth}
                         onCardClick={(characterItem: CharacterModal)=>navigate('/characterDetail', {state: {characterItem, isFromFavorite: true} })}
                         onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
                             if(isRemovedFavorite) {
-                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id == selectedItem.char_id);
-                                if(itemIndex != -1){
+                                const itemIndex = favoriteCharacterList.findIndex((favItem: CharacterModal)=>favItem.char_id === selectedItem.char_id);
+                                if(itemIndex !== -1){
                                     favoriteCharacterList.splice(itemIndex, 1);
                                 }
                             }
