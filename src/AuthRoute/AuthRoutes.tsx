@@ -2,9 +2,9 @@ import {
   BrowserRouter as Router, //replaces "Switch" used till v5
   Route, Routes
 } from "react-router-dom";
-import CharacterDetail from "../Components/CharacterDetail";
-import CharacterList from "../Components/CharacterList";
-import FavoriteList from "../Components/FavoriteList";
+import CharacterDetail from "../Components/characterDetail/CharacterDetail";
+import CharacterList from "../Components/characters/CharacterList";
+import FavoriteList from "../Components/characters/FavoriteList";
 
   const AuthRoutes = () =>{
     return(

@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { RootState } from "../Redux/store/store";
-import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
-import { CharacterModal } from "../shared/InterFaces/InterFaceList";
+import { RootState } from "../../Redux/store/store";
+import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
+import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import CharacterCard from "./CharacterCard";
-import EmptyComponent from "./EmptyComponent";
-import LoadingSpinner from "./Spinner";
+import EmptyComponent from "../emptyComponent/EmptyComponent";
+import LoadingSpinner from "../Loader/Spinner";
+import './character.style.css';
 
-
-const FavoriteList: React.FC = (props) => {
+const FavoriteList = () => {
 
     const width = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 : (window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
-    const windowWidth = window.innerWidth;
 
     const navigate = useNavigate();
     const charactersList = useSelector((state: RootState) => state.commonReducer.characters);
@@ -36,6 +35,7 @@ const FavoriteList: React.FC = (props) => {
             setStateUpdater(!stateUpdater);
             setLoader(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -45,10 +45,10 @@ const FavoriteList: React.FC = (props) => {
         return (
             <div className="cardRowContainer heaaderWrapper">
                 <div>
-                    <Link to={'/'}> <img src={require('../Images/left-arrow.svg').default} alt="no-img"/> </Link>
+                    <Link to={'/'}> <img src={require('../../Images/left-arrow.svg').default} alt="no-img"/> </Link>
                 </div>
                 <div className="favheaderContainer" >
-                    <img src={require('../Images/Vector.svg').default} alt="no-img"/>
+                    <img src={require('../../Images/Vector.svg').default} alt="no-img"/>
                     <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>
                 </div>
                 <div>

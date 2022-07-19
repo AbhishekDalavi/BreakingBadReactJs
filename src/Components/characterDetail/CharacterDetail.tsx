@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAllCharacters } from "../Redux/actions/commonAction";
-import { RootState, useAppDispatch } from "../Redux/store/store";
-import { AppColors, AppFontFamily, AppFonts } from "../shared/Constants/AppConstants";
-import { CharacterModal } from "../shared/InterFaces/InterFaceList";
-
+import { getAllCharacters } from "../../Redux/actions/commonAction";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
+import { AppColors, AppFontFamily, AppFonts } from "../../shared/Constants/AppConstants";
+import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
+import './characterDetail.style.css';
 const windowWidth = window.innerWidth;
 
 type LocationState = {
@@ -13,7 +13,7 @@ type LocationState = {
     isFromFavorite: boolean
   }
 
-const CharacterDetail: React.FC = (props) =>{
+const CharacterDetail = () =>{
 
     const [character, setCharacter] = useState<CharacterModal>(null!);
     const [stateUpdater, setStateUpdater] = useState<boolean>(false);
@@ -37,6 +37,7 @@ const CharacterDetail: React.FC = (props) =>{
             setCharacter(characterItem);
             setIsFromFavorite(isFromFavorite);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(()=>{
@@ -67,13 +68,13 @@ const CharacterDetail: React.FC = (props) =>{
     const renderImageView= () =>{
         return(
             <div className="overlay col-lg-6 col-md-12" style={myStyle(character)}>
-                <img src={require('../Images/left-arrow.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=> isFromFavorite ? navigate('/favoriteList') : navigate('/')} 
+                <img src={require('../../Images/left-arrow.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=> isFromFavorite ? navigate('/favoriteList') : navigate('/')} 
                         style={{ position: 'absolute',top: (windowWidth <= 640) ? 60 : 80, left: (windowWidth <= 640) ? 20 : 50}}/>
                 <div style={{ marginTop: 90 }}>
                     <div className="charcterSubImgStyle">
                         {(character.img) ? <img src={character.img} className="charcterDetailImg" alt="no-img" />
                         :
-                        <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
+                        <img src={require('../../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
                         }                       
                     </div>
                     <div style={{ marginTop: 15 }}>
@@ -98,7 +99,7 @@ const CharacterDetail: React.FC = (props) =>{
                             <span className="descSubtitleStyle" style={styles.subTitleStyle}>{character.portrayed}</span>
                         </div>
                         <div className="dobContainer">
-                            <img src={require('../Images/dob.svg').default} className="dobStyle" alt="no-img" />
+                            <img src={require('../../Images/dob.svg').default} className="dobStyle" alt="no-img" />
                             <span  className="cardTitleStyle" style={styles.dateTextStyle}>{character.birthday !== 'Unknown' ? character.birthday : 'N/A'}</span>
                         </div>
                     </div>
@@ -137,7 +138,7 @@ const CharacterDetail: React.FC = (props) =>{
                                 <div style={{marginBottom: 10}}>
                                     {img ? <img src={img} className="cardImgStyle" alt="no-img" />
                                     :
-                                    <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
+                                    <img src={require('../../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img" /> 
                                     }
                                 </div>
                                 <div className="subRowContainer">

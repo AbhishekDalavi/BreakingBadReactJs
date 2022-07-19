@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllCharacters } from "../Redux/actions/commonAction";
-import { RootState, useAppDispatch } from "../Redux/store/store";
-import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
-import { CharacterModal } from "../shared/InterFaces/InterFaceList";
+import { getAllCharacters } from "../../Redux/actions/commonAction";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
+import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
+import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import CharacterCard from "./CharacterCard";
-import EmptyComponent from "./EmptyComponent";
-import LoadingSpinner from "./Spinner";
+import EmptyComponent from "../emptyComponent/EmptyComponent";
+import LoadingSpinner from "../Loader/Spinner";
+import './character.style.css';
 
-
-const CharacterList: React.FC = (props) => {
+const CharacterList = () => {
     const width:number = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
         (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 :(window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
     
@@ -39,6 +39,7 @@ const CharacterList: React.FC = (props) => {
       return()=>{
        resetData();
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const resetData=()=>{
@@ -73,7 +74,7 @@ const CharacterList: React.FC = (props) => {
         return(
             <div className="cardRowContainer heaaderWrapper">
                 <div className="headerContainer">
-                    <img src={require('../Images/Vector.svg').default} alt="no-img"/>
+                    <img src={require('../../Images/Vector.svg').default} alt="no-img"/>
                     {(isSearchVisible && windowWidth <= 768 ) ? undefined : <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>}
                 </div>
                 <div className="headerContainer">
@@ -88,14 +89,14 @@ const CharacterList: React.FC = (props) => {
                             onChange={(e) => onchangeText(e.target.value)}
                             onSubmit={() => onchangeText(searchText) }
                         />
-                        <img src={require('../Images/search.svg').default} className="cursorStyle transitionStyle" onClick={()=>{
+                        <img src={require('../../Images/search.svg').default} className="cursorStyle transitionStyle" onClick={()=>{
                             setCharacterArray(charactersList);
                             resetData();}} alt="no-img"/>
                     </div>
                     :
-                    <img src={require('../Images/search.svg').default} alt="no-img" className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
+                    <img src={require('../../Images/search.svg').default} alt="no-img" className="cursorStyle transitionStyle" style={{marginRight: (windowWidth < 380) ? 20 : 40}} onClick={()=>setisSearchVisible(true)}/>
                     }
-                    <img src={require('../Images/HEART_FILLED.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList')}/>
+                    <img src={require('../../Images/HEART_FILLED.svg').default} alt="no-img" className="cursorStyle transitionStyle" onClick={()=>navigate('/favoriteList')}/>
                 </div>
             </div>
             

@@ -1,0 +1,16 @@
+.noDataStyle {
+    flex: 1 auto;
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: 'center';
+    align-items: 'center';
+    margin-top: 150px
+  }
+  .btnContainer {
+    border-width: 0.5px; 
+    padding-left: 10px; 
+    padding-right: 10px;
+    padding-top: 5px; 
+    padding-bottom: 5px;
+    border-radius: 5px;
+}

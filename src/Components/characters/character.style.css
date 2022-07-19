@@ -90,14 +90,6 @@ body {
 .headerM-l{
   margin-left: 20px;
 }
-.noDataStyle {
-  flex: 1 auto;
-  display: 'flex';
-  flex-direction: 'column';
-  justify-content: 'center';
-  align-items: 'center';
-  margin-top: 150px
-}
 .searchBoxStyle{
 height: 50px;
 max-width: 330px;
@@ -122,31 +114,7 @@ padding-right: 20px;
   outline: none;
 
 }
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.spinner-container{
-  height: 100vh;
-  width: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 10px solid #18CA75; /* Light green */
-  border-top: 10px solid #383636; /* Black */
-  border-radius: 50%;
-  animation: spinner 1.5s linear infinite;
-}
+
 .mainCardContainer.cursorStyle:hover {
   transition: 0.2s all;
   transform: scale(0.97);

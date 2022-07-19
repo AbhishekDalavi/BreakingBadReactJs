@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../Redux/store/store";
-import { AppColors, AppFontFamily } from "../shared/Constants/AppConstants";
-import { CharacterModal } from "../shared/InterFaces/InterFaceList";
+import { RootState } from "../../Redux/store/store";
+import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
+import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
+import './character.style.css';
 
 type cardPropsModal={
     characterItem: CharacterModal,
@@ -25,7 +26,7 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
             <div style={{ margin: 8 }}>
                 {(characterItem.img) ? <img src={characterItem.img} className="cardImgStyle" alt="no-img"/>
                 :
-                <img src={require('../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img"/> 
+                <img src={require('../../Images/No_Image_Available.jpg')} className="charcterDetailImg" alt="no-img"/> 
                 }
             </div>
             <div className="cardContentStyle">
@@ -42,7 +43,7 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                            e.stopPropagation();
                            onFavoriteClick(index, characterItem, true);
                        }}>
-                           <img src={require("../Images/HEART_FILLED.svg").default} className="favouriteStyle" alt="no-img"/>
+                           <img src={require("../../Images/HEART_FILLED.svg").default} className="favouriteStyle" alt="no-img"/>
 
                        </div>
                            :
@@ -50,7 +51,7 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                                e.stopPropagation();
                                onFavoriteClick(index, characterItem, false);
                            }}>
-                               <img src={require("../Images/HEART.svg").default} className="favouriteStyle" alt="no-img"/>
+                               <img src={require("../../Images/HEART.svg").default} className="favouriteStyle" alt="no-img"/>
                            </div>}
 
                 </div>
