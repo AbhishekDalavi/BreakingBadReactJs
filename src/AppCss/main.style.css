@@ -1,0 +1,28 @@
+.roboto-bold{
+    font-family: 'Roboto';
+    font-weight: 700;
+}
+.roboto-semi-bold{
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+.roboto-regular{
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+.roboto-light{
+    font-family: 'Roboto';
+    font-weight: 300;
+}
+.black-color{
+    color: #000000;
+}
+.light-black-color{
+    color: #131313;
+}
+.white-color{
+    color: #ffffff;
+}
+.green-color{
+    color: #18CA75;
+}

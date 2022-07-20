@@ -1,5 +1,4 @@
 import React from "react";
-import { AppColors, AppFontFamily, AppFonts } from "../../shared/Constants/AppConstants";
 import './empty.style.css';
 
 interface EmptyModal {
@@ -13,11 +12,11 @@ const EmptyComponent:React.FC<EmptyModal> = ({Title, subTitle, btnText, showBtn,
     return(
         <div>
             <div className="noDataStyle">
-                <h2 style={{fontFamily: AppFontFamily.RobotoBold, color: AppColors.white, textTransform: 'capitalize'}}>{Title ? Title : ''}</h2>
-                <span style={styles.subTitleStyle}>{subTitle ? subTitle : ''}</span>
+                <h2 className="roboto-bold white-color" style={{textTransform: 'capitalize'}}>{Title ? Title : ''}</h2>
+                <span className="roboto-regular white-color" style={{fontSize: 16}}>{subTitle ? subTitle : ''}</span>
                 {showBtn ? <div style={{marginTop: 15}}>
-                    <button onClick={()=> onBtnClick ? onBtnClick() : null} className="btnContainer" style={styles.btnStyle}>
-                        <span style={styles.btnTextStyle}>{btnText ? btnText : ''}</span>
+                    <button onClick={()=> onBtnClick ? onBtnClick() : null} className="btnContainer" style={{ background: '#000000', borderColor: '#18CA75'}}>
+                        <span className="roboto-regular green-color" style={{fontSize: 16}}>{btnText ? btnText : ''}</span>
                     </button>
                 </div>
                 : null}
@@ -27,20 +26,3 @@ const EmptyComponent:React.FC<EmptyModal> = ({Title, subTitle, btnText, showBtn,
 }
 
 export default EmptyComponent;
-
-const styles = {
-    subTitleStyle: {
-        fontSize: AppFonts.FontSize16, 
-        fontFamily: AppFontFamily.RobotoRegular, 
-        color: AppColors.white
-    },
-    btnStyle:{
-        background: AppColors.black, 
-        borderColor: AppColors.green, 
-    },
-    btnTextStyle:{
-        fontSize: AppFonts.FontSize16, 
-        fontFamily: AppFontFamily.RobotoRegular, 
-        color: AppColors.green
-    }
-}

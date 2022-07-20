@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllCharacters } from "../../Redux/actions/commonAction";
 import { RootState, useAppDispatch } from "../../Redux/store/store";
-import { AppColors, AppFontFamily, AppFonts } from "../../shared/Constants/AppConstants";
 import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import './characterDetail.style.css';
 const windowWidth = window.innerWidth;
@@ -78,10 +77,10 @@ const CharacterDetail = () =>{
                         }                       
                     </div>
                     <div style={{ marginTop: 15 }}>
-                        <span className="imgNameStyle" style={styles.nameText}>{character.name}</span>
+                        <span className="imgNameStyle roboto-bold white-color">{character.name}</span>
                     </div>
                     <div>
-                        <span className="imgNickName" style={styles.nicknameText}>{character.nickname}</span>
+                        <span className="imgNickName roboto-light white-color">{character.nickname}</span>
                     </div>
                 </div>
             </div>
@@ -95,38 +94,38 @@ const CharacterDetail = () =>{
                 <div className="detailDescContainer">
                     <div className="potrayedContainer charDetailmargin">
                         <div className="subRowContainer">
-                            <span className="cardTitleStyle" style={styles.titleStyle}>Potrayed</span>
-                            <span className="descSubtitleStyle" style={styles.subTitleStyle}>{character.portrayed}</span>
+                            <span className="cardTitleStyle roboto-semi-bold green-color">Potrayed</span>
+                            <span className="descSubtitleStyle roboto-light white-color">{character.portrayed}</span>
                         </div>
                         <div className="dobContainer">
                             <img src={require('../../Images/dob.svg').default} className="dobStyle" alt="no-img" />
-                            <span  className="cardTitleStyle" style={styles.dateTextStyle}>{character.birthday !== 'Unknown' ? character.birthday : 'N/A'}</span>
+                            <span  className="cardTitleStyle roboto-light white-color">{character.birthday !== 'Unknown' ? character.birthday : 'N/A'}</span>
                         </div>
                     </div>
                     <div className="charDetailmargin">
                         <div className="subRowContainer">
-                            <span className="cardTitleStyle" style={styles.titleStyle}>Occupation</span>
-                            <span className="descSubtitleStyle" style={styles.subTitleStyle}>{(character.occupation && character.occupation.length > 0) ? character.occupation.join(", ") : null}</span>
+                            <span className="cardTitleStyle roboto-semi-bold green-color">Occupation</span>
+                            <span className="descSubtitleStyle roboto-light white-color">{(character.occupation && character.occupation.length > 0) ? character.occupation.join(", ") : null}</span>
                         </div>
                     </div>
                     <div className="subRowContainer charDetailmargin charDetailmarginTop">
-                        <span className="cardTitleStyle" style={styles.titleStyle}>Appeared in</span>
+                        <span className="cardTitleStyle roboto-semi-bold green-color">Appeared in</span>
                         {(character.appearance && character.appearance.length > 0) ? <div className="OtherCharacterContainer">
                             {character.appearance.map((item, idx) => {
                                 return (
                                     <div className="seasonContainer" key={`${idx}_appearance`}>
-                                        <span className="descSubtitleStyle" style={styles.subTitleStyle}>{`Season ${item}`}</span>
+                                        <span className="descSubtitleStyle roboto-light white-color">{`Season ${item}`}</span>
                                     </div>
                                 )
                             })}
                         </div>
                         :
-                        <span className="descSubtitleStyle" style={styles.subTitleStyle}>{`Not appeared in any seasons`}</span>
+                        <span className="descSubtitleStyle roboto-light white-color">{`Not appeared in any seasons`}</span>
                         }
                     </div>
                 </div>
                 <div className="subRowContainer">
-                    <span className="cardTitleStyle" style={styles.otherCharTitle}>{(otherCharacterList.length > 0) ? `Other characters` : 'No Other characters'}</span>
+                    <span className="cardTitleStyle roboto-bold white-color" style={{marginBottom: 20}}>{(otherCharacterList.length > 0) ? `Other characters` : 'No Other characters'}</span>
                     <div className="OtherCharacterContainer">
                     {otherCharacterList.length > 0 && otherCharacterList.map((otherCharItem, index) => {
                         const {img, name, nickname} = otherCharItem;
@@ -142,8 +141,8 @@ const CharacterDetail = () =>{
                                     }
                                 </div>
                                 <div className="subRowContainer">
-                                    <span style={styles.otherNameText}>{name}</span>
-                                    <span style={styles.otherNicknameText}>{nickname}</span>
+                                    <span className="roboto-bold white-color" style={{fontSize: 16}}>{name}</span>
+                                    <span className="roboto-light white-color" style={{fontSize: 14}}>{nickname}</span>
                                 </div>
                             </div>
                         )
@@ -166,46 +165,4 @@ const CharacterDetail = () =>{
 
 export default CharacterDetail;
 
-const styles = {
-    nameText: {
-        fontFamily: AppFontFamily.RobotoBold,
-        color: AppColors.white,
-    },
-    nicknameText: {
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-    },
-    otherNameText: {
-        fontSize: AppFonts.FontSize16,
-        fontFamily: AppFontFamily.RobotoBold,
-        color: AppColors.white,
-    },
-    otherNicknameText: {
-        fontSize: AppFonts.FontSize14,
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-    },
-    titleStyle:{
-        fontFamily: AppFontFamily.RobotoSemiBold,
-        color: AppColors.green,
-    },
-    subTitleStyle: {
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-    },
-    dateTextStyle:{
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-    },
-    otherCharTitle:{
-        fontFamily: AppFontFamily.RobotoBold,
-        color: AppColors.white,
-        marginBottom: 20,
-    },
-    // leftArrowStyle: {
-    //     position: 'absolute', 
-    //     top: (windowWidth <= 640) ? 60 : 80, 
-    //     left: (windowWidth <= 640) ? 20 : 50
-    // }
-}
 

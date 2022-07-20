@@ -1,14 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store/store";
-import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
 import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import './character.style.css';
 
 type cardPropsModal={
     characterItem: CharacterModal,
     index: number,
-    screenWidth: number,
     onFavoriteClick: (index:number, characterItem: CharacterModal, isRemovedFavorite: boolean)=>void,
     onCardClick:(characterItem: CharacterModal)=>void
 
@@ -16,7 +14,7 @@ type cardPropsModal={
 const CharacterCard: React.FC <cardPropsModal> = (props) => {
     const favoriteCharacterList = useSelector((state: RootState)=> state.commonReducer.favoriteCharacterList); 
 
-    const { characterItem, index, screenWidth, onFavoriteClick, onCardClick} = props;
+    const { characterItem, index, onFavoriteClick, onCardClick} = props;
     const isIdxAvailable = favoriteCharacterList.findIndex((item: CharacterModal)=>item.char_id === characterItem.char_id);
 
        return (
@@ -33,10 +31,10 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                 <div className="cardRowContainer" style={{ textAlign: 'left' }}>
                     <div className="nameContainer">
                         <div>
-                            <span className="cardTitleStyle" style={styles.nameText}>{characterItem.name}</span>
+                            <span className="cardTitleStyle roboto-bold white-color">{characterItem.name}</span>
                         </div>
                         <div>
-                            <span className="cardTitleStyle" style={styles.nicknameText}>{characterItem.nickname}</span>
+                            <span className="cardTitleStyle roboto-light white-color">{characterItem.nickname}</span>
                         </div>
                     </div>
                        {(isIdxAvailable !== -1) ? <div className="favoriteContainer" onClick={(e) => {
@@ -55,12 +53,12 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
                            </div>}
 
                 </div>
-                <div className="headerContainer" style={{ marginTop: (screenWidth <= 590) ? 10 : 20 }}>
+                <div className="headerContainer" style={{ marginTop: 10}}>
                     <div>
-                        <span className="cardSubTitleStyle" style={styles.portrayedTitleStyle}>portrayed</span>
+                        <span className="cardSubTitleStyle roboto-semi-bold green-color">portrayed</span>
                     </div>
                     <div>
-                        <span className="cardSubTitleStyle" style={styles.portrayedStyle}>{characterItem.portrayed}</span>
+                        <span className="cardSubTitleStyle roboto-light white-color" style={{marginLeft: 15}}>{characterItem.portrayed}</span>
                     </div>
                 </div>
             </div>
@@ -70,23 +68,3 @@ const CharacterCard: React.FC <cardPropsModal> = (props) => {
 
 
 export default CharacterCard;
-
-const styles = {
-    nameText: {
-        fontFamily: AppFontFamily.RobotoBold,
-        color: AppColors.white,
-    },
-    nicknameText: {
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-    },
-    portrayedTitleStyle: {
-        fontFamily: AppFontFamily.RobotoSemiBold,
-        color: AppColors.green,
-    },
-    portrayedStyle: {
-        fontFamily: AppFontFamily.RobotoLight,
-        color: AppColors.white,
-        marginLeft: 15,
-    }
-}

@@ -1,5 +1,6 @@
 import './App.css';
 import AuthRoutes from './AuthRoute/AuthRoutes';
+import './AppCss/main.style.css';
 
 function App() {
   return (

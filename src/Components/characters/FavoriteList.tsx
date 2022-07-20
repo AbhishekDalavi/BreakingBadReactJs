@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../Redux/store/store";
-import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
 import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import CharacterCard from "./CharacterCard";
 import EmptyComponent from "../emptyComponent/EmptyComponent";
@@ -10,9 +9,6 @@ import LoadingSpinner from "../Loader/Spinner";
 import './character.style.css';
 
 const FavoriteList = () => {
-
-    const width = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
-        (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 : (window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
 
     const navigate = useNavigate();
     const charactersList = useSelector((state: RootState) => state.commonReducer.characters);
@@ -49,10 +45,10 @@ const FavoriteList = () => {
                 </div>
                 <div className="favheaderContainer" >
                     <img src={require('../../Images/Vector.svg').default} alt="no-img"/>
-                    <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>
+                    <span className="headerM-l cardTitleStyle roboto-bold white-color">The Breaking bad</span>
                 </div>
                 <div>
-                    <span className="cardTitleStyle" style={styles.favoriteTextStyle}>Favourites</span>
+                    <span className="cardTitleStyle roboto-regular green-color">Favourites</span>
                 </div>
             </div>
         )
@@ -66,7 +62,6 @@ const FavoriteList = () => {
                     return (<CharacterCard
                         characterItem={item}
                         index={index}
-                        screenWidth={width}
                         onCardClick={(characterItem: CharacterModal)=>navigate('/characterDetail', {state: {characterItem, isFromFavorite: true} })}
                         onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
                             if(isRemovedFavorite) {
@@ -102,16 +97,3 @@ const FavoriteList = () => {
 }
 
 export default FavoriteList;
-
-const styles = {
-    headerText: {
-        fontFamily: AppFontFamily.RobotoBold,
-        color: AppColors.white,
-        // marginLeft: 20,
-    },
-    favoriteTextStyle: {
-        fontFamily: AppFontFamily.RobotoRegular,
-        color: AppColors.green,
-    },
-
-}

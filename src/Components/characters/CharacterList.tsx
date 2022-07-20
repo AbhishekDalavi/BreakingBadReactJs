@@ -3,17 +3,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllCharacters } from "../../Redux/actions/commonAction";
 import { RootState, useAppDispatch } from "../../Redux/store/store";
-import { AppColors, AppFontFamily } from "../../shared/Constants/AppConstants";
 import { CharacterModal } from "../../shared/InterFaces/InterFaceList";
 import CharacterCard from "./CharacterCard";
 import EmptyComponent from "../emptyComponent/EmptyComponent";
 import LoadingSpinner from "../Loader/Spinner";
 import './character.style.css';
 
-const CharacterList = () => {
-    const width:number = (window.innerWidth < 640 ? window.innerWidth - 30 : (window.innerWidth >= 641 && window.innerWidth <= 768) ? window.innerWidth/3-30 : 
-        (window.innerWidth >= 768 && window.innerWidth <= 1200) ? window.innerWidth/2-30 :(window.innerWidth >= 1201 && window.innerWidth <= 1420) ? window.innerWidth/3-40 : window.innerWidth/3-80 ) ;
-    
+const CharacterList = () => {    
     const windowWidth:number = window.innerWidth;
     const dispatch = useAppDispatch();
     const charactersList = useSelector((state:RootState)=> state.commonReducer.characters); 
@@ -75,12 +71,12 @@ const CharacterList = () => {
             <div className="cardRowContainer heaaderWrapper">
                 <div className="headerContainer">
                     <img src={require('../../Images/Vector.svg').default} alt="no-img"/>
-                    {(isSearchVisible && windowWidth <= 768 ) ? undefined : <span className="headerM-l cardTitleStyle" style={styles.headerText}>The Breaking bad</span>}
+                    {(isSearchVisible && windowWidth <= 768 ) ? undefined : <span className="headerM-l cardTitleStyle roboto-bold white-color">The Breaking bad</span>}
                 </div>
                 <div className="headerContainer">
                     {isSearchVisible ? <div className="searchBoxStyle">
-                        <input style={styles.searchBoxContainer}
-                            className="searchInputStyle descSubtitleStyle"
+                        <input
+                            className="searchInputStyle descSubtitleStyle roboto-regular white-color"
                             type={'text'}
                             autoFocus
                             value={searchText}
@@ -111,7 +107,6 @@ const CharacterList = () => {
                 return(<CharacterCard 
                         characterItem={item} 
                         index={index} 
-                        screenWidth={width}
                         onCardClick={(characterItem)=>{navigate('/characterDetail', {state: {characterItem, isFromFavorite: false} })}}
                         onFavoriteClick={(selectedIndex, selectedItem, isRemovedFavorite)=>{
                             if(isRemovedFavorite) {
@@ -159,14 +154,3 @@ const CharacterList = () => {
 
 export default CharacterList;
 
-const styles = {
-    headerText: { 
-        fontFamily: AppFontFamily.RobotoBold, 
-        color: AppColors.white,
-        // marginLeft: 20
-    },
-    searchBoxContainer: {
-        fontFamily: AppFontFamily.RobotoRegular,
-        color: AppColors.white
-    }
-}
